@@ -10,8 +10,19 @@ def dashboard(request):
     # form = DocumentForm()
     # Load documents for the list page
     # documents = Document.objects.all()
-    # shows properties of documents
-    # print(documents[0].__dict__)
+
+    # results = User.objects.log(request.POST)
+    # test = User.report
+    
+    print(User.objects.get(pk=request.session["user_id"]).user_name)
+
+
+    # prints values in session
+    # for key, value in request.session.items():
+    #     print('{} => {}'.format(key, value))
+
+    # for key in request.session.keys():
+    #     print("key:=>" + request.session[key])
 
     # Render list page with the documents and the form
     context = {'documents': Document.objects.all()}
@@ -19,25 +30,17 @@ def dashboard(request):
     return render(request, "FileUpload/dashboard.html", context)
 
 def fileupload(request):
+    if not "user_id" in request.session:
+        print("ERROR: fileupload, Unlogged in user")
+        return(redirect("/dashboard"))
+
     message = ""
     # Handle File Upload
     # if a POST request has been placed...
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
-        # docfile=request.FILES['docfile']
-        # print("")
-        # # print(request.FILES['docfile'].__dict__)
-        # print(docfile.__dict__)
-        # print(docfile.name)
-        # print("")
-
         if form.is_valid():
             newdoc = Document(docfile=request.FILES['docfile'])
-            # newdoc.add_heading({"fileNm": title})
-            # print("")
-            # print(newdoc.core_properties)
-            # print(newdoc.__dict__)
-            # print("")
             newdoc.save()
 
             # Redirect to the document list after POST
@@ -51,8 +54,5 @@ def fileupload(request):
     documents = Document.objects.all()
 
     # Render list page with the documents and the form
-    context = {'documents': documents, 'form': form, 'message':message}
+    context = {'documents': documents, 'form': form, 'message': message}
     return render(request, 'FileUpload/list.html', context)
-
-
-

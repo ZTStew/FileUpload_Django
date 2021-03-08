@@ -9,17 +9,23 @@ class Validator(models.Manager):
 
         errors = []
 
-        # First Name
-        if len(form_data["first_name"]) < 1:
-            errors.append("First name is required.")
-        elif len(form_data["first_name"]) < 2:
-            errors.append("First name is too short.")
+        # # First Name
+        # if len(form_data["first_name"]) < 1:
+        #     errors.append("First name is required.")
+        # elif len(form_data["first_name"]) < 2:
+        #     errors.append("First name is too short.")
 
-        # Last Name
-        if len(form_data["last_name"]) < 1:
-            errors.append("Last name is required.")
-        elif len(form_data["last_name"]) < 2:
-            errors.append("Last name is too short.")
+        # # Last Name
+        # if len(form_data["last_name"]) < 1:
+        #     errors.append("Last name is required.")
+        # elif len(form_data["last_name"]) < 2:
+        #     errors.append("Last name is too short.")
+
+        # User Name
+        if len(form_data["user_name"]) < 1:
+            errors.append("User name is required.")
+        elif len(form_data["user_name"]) < 6:
+            errors.append("User name must be at least 6 characters long.")
 
         # Email
         if len(form_data["email"]) < 1:
@@ -47,8 +53,9 @@ class Validator(models.Manager):
         else:
             hashed_pw = bcrypt.hashpw(form_data["password"].encode(), bcrypt.gensalt())
             user = User.objects.create(
-                first_name = form_data["first_name"],
-                last_name = form_data["last_name"],
+                # first_name = form_data["first_name"],
+                # last_name = form_data["last_name"],
+                user_name = form_data["user_name"],
                 email = form_data["email"].lower(),
                 password = hashed_pw,
                 # date= form_data["date"],
@@ -85,8 +92,9 @@ class Validator(models.Manager):
 
 
 class User(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    # first_name = models.CharField(max_length=255)
+    # last_name = models.CharField(max_length=255)
+    user_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
