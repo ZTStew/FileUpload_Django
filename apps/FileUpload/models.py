@@ -19,12 +19,10 @@ from django.db import models
 # Create your models here.
 class Document(models.Model):
     # Sets destination folder for file being uploaded
-    # userName = models.CharField(max_length=255)
-    # fileName = models.CharField(max_length=255)
     # document = models.CharField(max_length=255)
     # ROOT: /'Project_Name'
     docfile = models.FileField(upload_to='apps/FileUpload/documents/')
-    name = "TempName"
+    uploader = models.CharField(max_length=255)
     # created_at = models.DateTimeField(auto_now_add=True)
     # updated_at = models.DateTimeField(auto_now=True)
     # print(docfile.__dict__)

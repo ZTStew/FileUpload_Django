@@ -14,7 +14,7 @@ def dashboard(request):
     # results = User.objects.log(request.POST)
     # test = User.report
     
-    print(User.objects.get(pk=request.session["user_id"]).user_name)
+    # print(User.objects.get(pk=request.session["user_id"]).user_name)
 
 
     # prints values in session
@@ -31,7 +31,7 @@ def dashboard(request):
 
 def fileupload(request):
     if not "user_id" in request.session:
-        print("ERROR: fileupload, Unlogged in user")
+        print("ERROR <fileupload>: user not logged in")
         return(redirect("/dashboard"))
 
     message = ""
@@ -40,7 +40,9 @@ def fileupload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Document(docfile=request.FILES['docfile'])
+
+            # creates 'Document' object
+            newdoc = Document(docfile=request.FILES['docfile'], uploader=User.objects.get(pk=request.session["user_id"]).user_name)
             newdoc.save()
 
             # Redirect to the document list after POST
@@ -52,6 +54,7 @@ def fileupload(request):
 
     # Load documents for the list page
     documents = Document.objects.all()
+    # print(documents[0].__dict__)
 
     # Render list page with the documents and the form
     context = {'documents': documents, 'form': form, 'message': message}
