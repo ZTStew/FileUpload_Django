@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from apps.Login_Register.models import User
 from django.contrib import messages
-from .models import Document
-from .forms import DocumentForm
 
 # Create your views here.
 def dashboard(request):
@@ -64,3 +62,7 @@ def fileupload(request):
     # Render list page with the documents and the form
     context = {'documents': documents, 'form': form, 'message': message}
     return render(request, 'FileUpload/list.html', context)
+
+    # if "user_id" not in request.session:
+        # return(redirect("/ln"))
+    return render(request, "FileUpload/dashboard.html")
