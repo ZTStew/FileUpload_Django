@@ -25,9 +25,13 @@ def dashboard(request):
     #     print("key:=>" + request.session[key])
 
     # Render list page with the documents and the form
+    # context = {'documents': Document.objects.all()}
     context = {'documents': Document.objects.all()}
 
-    return render(request, "FileUpload/dashboard.html", context)
+    # print(context)
+
+    # return render(request, "FileUpload/dashboard.html", context)
+    return render(request, "FileUpload/dashboard.html")
 
 def fileupload(request):
     if not "user_id" in request.session:
@@ -42,7 +46,8 @@ def fileupload(request):
         if form.is_valid():
 
             # creates 'Document' object
-            newdoc = Document(docfile=request.FILES['docfile'], uploader=User.objects.get(pk=request.session["user_id"]).user_name)
+            newdoc = Document(docfile=request.FILES['docfile'])
+                # , uploader=User.objects.get(pk=request.session["user_id"]).user_name)
             newdoc.save()
 
             # Redirect to the document list after POST

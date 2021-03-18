@@ -9,16 +9,17 @@
         <h1>FileUpload - Dashboard</h1>
 
         <!-- List of uploaded documents -->
-        {% if documents %}
+        <!-- {% if documents %}
             All documents in the database:
             <ul>
                 {% for document in documents %}
                     <li><a href="{{ document.docfile.name }}">{{ document.docfile.name }}</a></li>
+                    <li><a href="{{ document.uploader }}">{{ document.uploader }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
             <p>No documents.</p>
-        {% endif %}
+        {% endif %} -->
 
         <h3><a href="/upload">Upload File</a></h3>
         <h3><a href="/ln">Log In</a></h3>
