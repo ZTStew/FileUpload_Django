@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from apps.Login_Register.models import User
+from .models import Document
 from django.contrib import messages
+from .forms import DocumentForm
 
 # Create your views here.
 def dashboard(request):
@@ -28,8 +30,8 @@ def dashboard(request):
 
     # print(context)
 
-    # return render(request, "FileUpload/dashboard.html", context)
-    return render(request, "FileUpload/dashboard.html")
+    return render(request, "FileUpload/dashboard.html", context)
+    # return render(request, "FileUpload/dashboard.html")
 
 def fileupload(request):
     if not "user_id" in request.session:
@@ -40,11 +42,36 @@ def fileupload(request):
     # Handle File Upload
     # if a POST request has been placed...
     if request.method == 'POST':
+
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
 
             # creates 'Document' object
+            # print(request.POST)
+            # print(request.FILES)
+            # print(request.FILES['docfile'])
+
+            # print(request.FILES.__dict__)
+            # print(request.FILES.__dir__())
+            # print(request.FILES.get)
+            # print(request.FILES.items)
+            # print(request.FILES.lists)
+
+            # fileName = request.FILES['docfile']
+            # fileBreak = fileName.split('.')
+
+            # for i in fileBreak:
+            #     print(fileBreak)
+            testfile = docfile=request.FILES['docfile']
+            print(testfile)
+            testname = testfile.name
+            print(testname)
+            testlist = testname.split('.')
+            print(testlist)
+
             newdoc = Document(docfile=request.FILES['docfile'])
+            # print(newdoc.__dir__())
+            # print(newdoc.name)
                 # , uploader=User.objects.get(pk=request.session["user_id"]).user_name)
             newdoc.save()
 
@@ -62,7 +89,8 @@ def fileupload(request):
     # Render list page with the documents and the form
     context = {'documents': documents, 'form': form, 'message': message}
     return render(request, 'FileUpload/list.html', context)
+    # return render(request, 'FileUpload/list.html')
 
     # if "user_id" not in request.session:
         # return(redirect("/ln"))
-    return render(request, "FileUpload/dashboard.html")
+    # return render(request, "FileUpload/dashboard.html")
