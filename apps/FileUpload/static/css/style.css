@@ -1,0 +1,18 @@
+
+* {
+    background-color: red;
+}
+.heading {
+    font-weight: bold;
+}
+table {
+    border-collapse: collapse;
+}
+tr {
+    border: solid;
+    border-width: 1px;
+}
+th, td {
+    padding-left: 5px;
+    padding-right: 5px;
+}

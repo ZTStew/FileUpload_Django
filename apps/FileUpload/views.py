@@ -46,7 +46,6 @@ def fileupload(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
 
-
             # Validates file information to make sure that the file has a name and an extension
             # Splits given file at '.'
             fileParts = request.FILES['docfile'].name.split('.')
@@ -72,13 +71,18 @@ def fileupload(request):
                 # Assigns default value for 'fileExtension'
                 fileExtension = "N/A"
 
-            print("fileName: " + fileName)
-            print("fileExtension: " + fileExtension)
+            # print("fileName: " + fileName)
+            # print("fileExtension: " + fileExtension)
 
-            newdoc = Document(docfile=request.FILES['docfile'])
+            newdoc = Document(
+                uploader=User.objects.get(pk=request.session["user_id"]).user_name,
+                docfile=request.FILES['docfile'], 
+                file_Name=fileName, 
+                file_Extension=fileExtension
+            )
             # print(newdoc.__dir__())
             # print(newdoc.name)
-                # , uploader=User.objects.get(pk=request.session["user_id"]).user_name)
+                # , )
             newdoc.save()
 
             # Redirect to the document list after POST

@@ -2,13 +2,22 @@ Program allows users to submit files and view their files as well as the
 files of others.
 
 Current:
+
+General:
  - Basic user login and cross application linking
+ - Fix dashboard to allow non-logged in users to view files just not 
+    submit files of their own or download files
+
+Login & Register:
+ - Have buttons in HTML for going to login and register screen
+ - Get FileUpload to communicate with Login_Register about user being 
+    logged in
+
+File Upload:
  - Get to where users can submit files
  - Save files in database
  - Get UI to show all files on main page
  - Deletes files from saved to folder with each startup of the server
- - Get FileUpload to communicate with Login_Register about user being 
-logged in
 
 Noteworthy Commands:
 python manage.py makemigrations && python manage.py migrate && python manage.py runserver
@@ -18,18 +27,13 @@ python manage.py flush -> clears all database records. Note: will not remove gen
 To Do:
 
 General:
- - Get UI to show all files on main page
  - Allow users to view their files on secondary user page
+ - Get upload times to match user time zone
 
 Login & Register:
  - Seperate Login and Register screens
- - Have buttons in HTML for going to login and register screen
- - Fix dashboard to allow non-logged in users to view files just not 
-submit files of their own or download files
 
 File Upload:
- - Get to where users can submit files
- - Save files in database
  - User who owns a file can edit/reupload and delete files
  - Allow users to flag uploaded files as public or private
  - Logged in users can download files from database

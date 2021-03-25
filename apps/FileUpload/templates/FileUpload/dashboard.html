@@ -3,23 +3,73 @@
 <!-- <html[tab] -->
     <head>
         <title>File Upload</title>
-        <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <style>
+            * {
+                margin: 0px;
+                margin-bottom: 5px;
+                padding: 0px;
+            }
+            .heading {
+                font-weight: bold;
+            }
+            table {
+                margin: 5px;
+                border-collapse: collapse;
+                width: calc(100% - 10px);
+            }
+            tr {
+                border: solid;
+                border-width: 1px;
+            }
+            th, td {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            td {
+                text-align: center;
+            }
+            .tableHead {
+                font-size: 1.2rem;
+            }
+            .tableText {
+                font-size: 1.1rem;
+            }
+        </style>
     </head>
     <body>
         <h1>FileUpload - Dashboard</h1>
 
         <!-- List of uploaded documents -->
-        <!-- {% if documents %}
+        {% if documents %}
             All documents in the database:
-            <ul>
+            <table>
+                <tr>
+                    <th class="tableHead">File Name: </th>
+                    <th class="tableHead">File Extension: </th>
+                    <th class="tableHead">Full File Name: </th>
+                    <th class="tableHead">File Uploader: </th>
+                    <th class="tableHead">File Upload Date: </th>
+                </tr>
                 {% for document in documents %}
-                    <li><a href="{{ document.docfile.name }}">{{ document.docfile.name }}</a></li>
-                    <li><a href="{{ document.uploader }}">{{ document.uploader }}</a></li>
+                    <tr>
+                        <!-- <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+                        <li><a href="{{ document.file_Name }}">{{ document.file_Name }}</a></li>
+                        <li><a href="{{ document.file_Extension }}">{{ document.file_Extension }}</a></li>
+                        <li><a href="{{ document.uploader }}">{{ document.uploader }}</a></li>
+                        <li><a href="{{ document.created_at }}">{{ document.created_at }}</a></li>
+                        <li><a href="{{ document.updated_at }}">{{ document.updated_at }}</a></li> -->
+                        <td class="tableText">{{ document.file_Name }}</td>
+                        <td class="tableText">{{ document.file_Extension }}</td>
+                        <td class="tableText">{{ document.file_Name }}{{ document.file_Extension }}</td>
+                        <td class="tableText">{{ document.uploader }}</td>
+                        <td class="tableText">{{ document.created_at }}</td>
+                    </tr>
                 {% endfor %}
-            </ul>
+            </table>
         {% else %}
             <p>No documents.</p>
-        {% endif %} -->
+        {% endif %}
 
         <h3><a href="/upload">Upload File</a></h3>
         <h3><a href="/ln">Log In</a></h3>
