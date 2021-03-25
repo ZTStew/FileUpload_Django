@@ -46,28 +46,34 @@ def fileupload(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
 
-            # creates 'Document' object
-            # print(request.POST)
-            # print(request.FILES)
-            # print(request.FILES['docfile'])
 
-            # print(request.FILES.__dict__)
-            # print(request.FILES.__dir__())
-            # print(request.FILES.get)
-            # print(request.FILES.items)
-            # print(request.FILES.lists)
+            # Validates file information to make sure that the file has a name and an extension
+            # Splits given file at '.'
+            fileParts = request.FILES['docfile'].name.split('.')
+            fileName = ""
+            fileExtension = ""
 
-            # fileName = request.FILES['docfile']
-            # fileBreak = fileName.split('.')
+            # Handles when the file does and does not have an extension
+            if len(fileParts) > 1:
+                # creates fileName
+                for i in  range(len(fileParts) - 1):
+                    # Readds '.' to 'fileName'
+                    if i > 0:
+                        fileName += "."
+                    # Builds 'fileName'
+                    fileName += fileParts[i]
 
-            # for i in fileBreak:
-            #     print(fileBreak)
-            testfile = docfile=request.FILES['docfile']
-            print(testfile)
-            testname = testfile.name
-            print(testname)
-            testlist = testname.split('.')
-            print(testlist)
+                # Assigns 'fileExtension' the value of the last index of the file to protect against files that have stacked extensions
+                fileExtension = "." + fileParts[len(fileParts) - 1]
+
+            else:
+                # sets 'fileName' to the value of 'fileParts'
+                fileName = fileParts[0]
+                # Assigns default value for 'fileExtension'
+                fileExtension = "N/A"
+
+            print("fileName: " + fileName)
+            print("fileExtension: " + fileExtension)
 
             newdoc = Document(docfile=request.FILES['docfile'])
             # print(newdoc.__dir__())
